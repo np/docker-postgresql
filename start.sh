@@ -10,12 +10,10 @@ POSTGRESQL_CONFIG_FILE="$PGDATA"/postgresql.conf
 export PGDATA
 
 if [ ! -d "$PGDATA" -o "$(ls -A "$PGDATA" 2>/dev/null)" ]; then
-  mkdir -p "$PGDATA"
-  chown -R postgres:postgres "$PGDATA"
-  sudo -u postgres initdb
-  sudo -u postgres postgres --single <<< "CREATE USER '$POSTGRESQL_USER' WITH SUPERUSER;"
-  sudo -u postgres postgres --single <<< "ALTER USER '$POSTGRESQL_USER' WITH PASSWORD '$POSTGRESQL_PASS';"
-  sudo -u postgres postgres --single <<< "CREATE DATABASE '$POSTGRESQL_DB' OWNER '$POSTGRESQL_USER';"
+  initdb
+  postgres --single <<< "CREATE USER '$POSTGRESQL_USER' WITH SUPERUSER;"
+  postgres --single <<< "ALTER USER '$POSTGRESQL_USER' WITH PASSWORD '$POSTGRESQL_PASS';"
+  postgres --single <<< "CREATE DATABASE '$POSTGRESQL_DB' OWNER '$POSTGRESQL_USER';"
 fi
 
-exec sudo -u postgres postgres
+exec postgres
