@@ -9,7 +9,7 @@ PGDATA="${PGDATA:-/data}"
 POSTGRESQL_CONFIG_FILE="$PGDATA"/postgresql.conf
 export PGDATA
 
-if [ ! -d "$PGDATA" -o "$(ls -A "$PGDATA" 2>/dev/null)" ]; then
+if [ ! -d "$PGDATA" -o ! "$(ls -A "$PGDATA" 2>/dev/null)" ]; then
   initdb
   postgres --single <<< "CREATE USER $POSTGRESQL_USER WITH SUPERUSER;"
   postgres --single <<< "ALTER USER $POSTGRESQL_USER WITH PASSWORD '$POSTGRESQL_PASS';"
