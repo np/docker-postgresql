@@ -1,0 +1,3 @@
+#!/bin/bash
+docker push d.ail/pg
+docker push d.ail/pg_upgrade

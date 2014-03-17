@@ -5,17 +5,21 @@ RUN pacman --noconfirm -Syu postgresql vim htop
 
 VOLUME ["/data"]
 
-ADD postgresql.conf /data/postgresql.conf
-ADD pg_hba.conf     /data/pg_hba.conf
+ADD postgresql.conf /postgresql.conf
+ADD pg_hba.conf     /pg_hba.conf
 ADD start.sh        /start.sh
 
-RUN usermod -d /data postgres
+RUN usermod -d /data postgres ;\
+    mkdir -p /run/postgresql ;\
+    chown postgres:postgres /run/postgresql
 
-ENV  HOME   /data
 USER postgres
 
+ENV  PGDATA /data
+ENV  HOME   /data
 ENV  LC_ALL en_US.UTF-8
 ENV  LANG   en_US.UTF-8
 
-EXPOSE 5432
-CMD    ["/start.sh"]
+EXPOSE  5432
+CMD     ["/start.sh"]
+WORKDIR /data
