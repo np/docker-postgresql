@@ -1,2 +1,7 @@
 #!/bin/bash
-sudo docker build -t d.ail/pg -rm .
+set -eu
+TAG=${TAG:-$(date +%F)}
+REPO=pg
+docker build -t d.ail/$REPO:$TAG .
+docker tag d.ail/$REPO:$TAG d.ail/$REPO:latest
+docker push d.ail/$REPO

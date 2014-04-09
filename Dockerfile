@@ -1,7 +1,7 @@
-FROM base/devel
+FROM d.ail/arch
 MAINTAINER Nicolas Pouillard
 
-RUN pacman --noconfirm -Syu postgresql vim htop
+RUN pacman --noconfirm -Syu postgresql
 
 VOLUME ["/data"]
 
