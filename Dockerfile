@@ -1,4 +1,4 @@
-FROM d.ail/arch
+FROM quay.io/stacks/base-np
 MAINTAINER Nicolas Pouillard
 
 RUN pacman --noconfirm -Syu postgresql
